@@ -35,10 +35,39 @@ function takeTextInput() {
     console.log(refs.form);
 
  }
-   
+ 
+// import throttle from 'lodash.throttle';
+
+// const refs = {
+//     form: document.querySelector('.feedback-form'),
+//     textarea: document.querySelector('textarea'),
+// }
+// const KEY = 'feedback';
+// populateTextarea();
 
 
+// refs.form.addEventListener('submit', onFormSubmit);
+// refs.textarea.addEventListener('input', throttle(onTextareaInput, 1000));
 
+// function onFormSubmit(e) {
+//     e.preventDefault();
+//     e.currentTarget.reset();
+//     localStorage.removeItem(KEY);
+
+// }
+
+// function onTextareaInput(e) {
+//     const message = e.currentTarget.value;
+//     localStorage.setItem(KEY, message);
+// }
+
+// function populateTextarea() {
+//     const savedMessage = localStorage.getItem(KEY);
+
+//     if (savedMessage) { 
+//         refs.textarea.value = savedMessage;
+//     }
+// }
 
 
 
