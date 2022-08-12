@@ -26,20 +26,20 @@ const lightbox = new SimpleLightbox('.gallery a', {
 
 })
 
-function onImageClick(event) {
-    event.preventDefault();
-    if (!event.target.classList.contains("gallery__image"))
-        return;
-}
+// function onImageClick(event) {
+//     event.preventDefault();
+//     if (!event.target.classList.contains("gallery__image"))
+//         return;
+// }
 
 
 
-galleryContainer.addEventListener('keydown', onEscPress)
-function onEscPress(event) {
-    if (event.code === 'Escape') {
-        instance.close()
-    }
-}
+// galleryContainer.addEventListener('keydown', onEscPress)
+// function onEscPress(event) {
+//     if (event.code === 'Escape') {
+//         instance.close()
+//     }
+// }
     
 
 

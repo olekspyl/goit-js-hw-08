@@ -1,14 +1,17 @@
+// 1. Відстежуй на формі подію input, і щоразу записуй у локальне сховище об'єкт з полями email і message, у яких зберігай поточні значення полів форми. Нехай ключем для сховища буде рядок "feedback-form-state".
+import throttle from 'lodash.throttle';
+
 const refs = {
     form: document.querySelector('form'),
 }
-
-const array = {};
+let savedData = "";
+let array = {};
 const LOCAL_STORAGE = "feedback-form-state";
 
 refs.form.addEventListener('submit', onFormSubmit);
-refs.form.addEventListener('input', onFormIput);
+refs.form.addEventListener('input', throttle(onFormIput, 500));
 
-takeTextInput();
+initInput();
 
 function onFormIput(event) {
     array[event.target.name] = event.target.value;
@@ -16,27 +19,32 @@ function onFormIput(event) {
 
     console.log(array);
 }
-
+// 3. Під час сабміту форми очищуй сховище і поля форми, а також виводь у консоль об'єкт з полями email, message та їхніми поточними значеннями
 function onFormSubmit(event) {
     event.preventDefault();
     event.currentTarget.reset();
     localStorage.removeItem(LOCAL_STORAGE);
 }
+// 2. Під час завантаження сторінки перевіряй стан сховища, і якщо там є збережені дані, заповнюй ними поля форми. В іншому випадку поля повинні бути порожніми.
+
+function initInput() {
+    savedData = localStorage.getItem(LOCAL_STORAGE);
+    if (savedData) {
+        savedData = JSON.parse(savedData);
+    }
+    Object.entries(savedData).forEach(([name, value]) => {
+    refs.form.elements[name].value = value;
     
-function takeTextInput() {
-    const savedText = JSON.parse(localStorage.getItem(LOCAL_STORAGE));
-    refs.form.email.value = savedText.email;
-    refs.form.message.value = savedText.message;
     
-    console.log(savedText.email);
-    console.log(savedText.message);
+    console.log(savedData.email);
+    console.log(savedData.message);
     console.log(refs.form.email.value);
     console.log(refs.form.message.value);
     console.log(refs.form);
-
+    }) 
  }
- 
-// import throttle from 'lodash.throttle';
+
+
 
 // const refs = {
 //     form: document.querySelector('.feedback-form'),
