@@ -4,8 +4,7 @@ import throttle from 'lodash.throttle';
 const refs = {
     form: document.querySelector('form'),
 }
-let savedData = "";
-let array = {};
+
 const LOCAL_STORAGE = "feedback-form-state";
 
 refs.form.addEventListener('submit', onFormSubmit);
@@ -14,10 +13,18 @@ refs.form.addEventListener('input', throttle(onFormIput, 500));
 initInput();
 
 function onFormIput(event) {
-    array[event.target.name] = event.target.value;
-    localStorage.setItem(LOCAL_STORAGE, JSON.stringify(array));
+    function onFormIput(event) {
+    let savedData = localStorage.getItem(LOCAL_STORAGE);
+    if (savedData) {
+        savedData = JSON.parse(savedData);
+    }else{
+    savedData = {}
+    }
+    savedData[event.target.name] = event.target.value;
+    localStorage.setItem(LOCAL_STORAGE, JSON.stringify(savedData));
 
-    console.log(array);
+    console.log(savedData);
+}
 }
 // 3. Під час сабміту форми очищуй сховище і поля форми, а також виводь у консоль об'єкт з полями email, message та їхніми поточними значеннями
 function onFormSubmit(event) {
@@ -28,7 +35,7 @@ function onFormSubmit(event) {
 // 2. Під час завантаження сторінки перевіряй стан сховища, і якщо там є збережені дані, заповнюй ними поля форми. В іншому випадку поля повинні бути порожніми.
 
 function initInput() {
-    savedData = localStorage.getItem(LOCAL_STORAGE);
+    let savedData = localStorage.getItem(LOCAL_STORAGE);
     if (savedData) {
         savedData = JSON.parse(savedData);
     }
